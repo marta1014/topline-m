@@ -1,6 +1,11 @@
 import Vue from 'vue'
 
-import { NavBar, Field, Button, Row, Icon, Cell, CellGroup, Toast } from 'vant'
+import
+{ NavBar, Field, Button,
+  Row, Icon, Cell, CellGroup, Toast,
+  CountDown
+}
+  from 'vant'
 
 Vue.use(NavBar)// 导航栏
   .use(Field)// 输入框
@@ -10,3 +15,4 @@ Vue.use(NavBar)// 导航栏
   .use(Cell)// 单元格
   .use(CellGroup)// 单元组
   .use(Toast)// 轻提示
+  .use(CountDown)// 倒计时
