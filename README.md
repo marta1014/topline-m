@@ -78,3 +78,6 @@ n) => 项目根目录中创建 postcss.config.js 文件 => module.exports = {
  a. h5自带兼容不好
  b. 使用组件内置 例如element内置验证功能、 vant没提供
  c. 验证插件 vuelidate、veevalidate 。。。
+
+ vee-validate  1. npm i vee-validate
+               2. 配置规则
