@@ -3,7 +3,8 @@ import Vue from 'vue'
 import
 { NavBar, Field, Button,
   Row, Icon, Cell, CellGroup, Toast,
-  CountDown
+  CountDown, Tabbar, TabbarItem,
+  Grid, GridItem, Image, Dialog
 }
   from 'vant'
 
@@ -16,3 +17,9 @@ Vue.use(NavBar)// 导航栏
   .use(CellGroup)// 单元组
   .use(Toast)// 轻提示
   .use(CountDown)// 倒计时
+  .use(Tabbar)// 标签栏
+  .use(TabbarItem)// 标签
+  .use(Grid)
+  .use(GridItem)// 宫格区块
+  .use(Image)
+  .use(Dialog)

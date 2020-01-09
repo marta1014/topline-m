@@ -44,8 +44,8 @@ export default {
     return {
       user: {
         // 初始化数据 双向绑定
-        mobile: '',
-        code: ''
+        mobile: '13911111111',
+        code: '246810'
       },
       isCountDown: false
     }
@@ -106,9 +106,11 @@ export default {
       })
       try {
         const res = await login(user)
-        console.log(res)
-        // window.localStorage.setItem('user-token', res.data.data.token)
-        // this.$router.push('/home')
+        // console.log(res)
+        // res.data.data => {token:'xxx',refresh_token: 'xxx' }
+        // 将token存储至vuex容器中 达到共享
+        this.$store.commit('setUser', res.data.data)
+        this.$router.push('/')
         this.$toast.success('成功登陆')
       } catch (error) {
         this.$toast.fail('登陆失败')

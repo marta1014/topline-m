@@ -1,9 +1,17 @@
 <template>
-  <div>主页</div>
+  <div>
+    <van-nav-bar title="主页" />
+  </div>
 </template>
 
 <script>
-export default {}
+// import navHeader from '../../components/header/'
+export default {
+  name: 'homePage',
+  components: {
+    // navHeader
+  }
+}
 </script>
 
 <style>
