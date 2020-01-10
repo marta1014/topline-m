@@ -4,7 +4,8 @@ import
 { NavBar, Field, Button,
   Row, Icon, Cell, CellGroup, Toast,
   CountDown, Tabbar, TabbarItem,
-  Grid, GridItem, Image, Dialog
+  Grid, GridItem, Image, Dialog,
+  Tab, Tabs, List, PullRefresh
 }
   from 'vant'
 
@@ -22,4 +23,8 @@ Vue.use(NavBar)// 导航栏
   .use(Grid)
   .use(GridItem)// 宫格区块
   .use(Image)
-  .use(Dialog)
+  .use(Dialog)// 弹层
+  .use(Tab)
+  .use(Tabs)// 标签页
+  .use(List)// 列表
+  .use(PullRefresh)// 下拉刷新
