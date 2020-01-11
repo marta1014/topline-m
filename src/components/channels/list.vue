@@ -31,7 +31,7 @@
 import { artList } from '@/api/art-list'
 export default {
   name: 'channelslist',
-  props: {// 通过props接收到父组件的数据 而这个数据是个对象
+  props: {// 通过props接收到父组件的数据
     channel: {// 严谨规定接收
       type: Object,
       required: true
@@ -60,7 +60,7 @@ export default {
       // 把请求的数据“加”到list中
       // 利用数组的展开操作符（把数组的元素一个个拿出来）给到push方法
       this.list.push(...res)
-      // this.list.concat(res)
+      // this.list.concat(res)    <====== ?
       // 加载状态结束
       this.loading = false
       // 数据全部加载完成
@@ -71,16 +71,20 @@ export default {
         this.finished = true
       }
     },
-    onRefresh () { // 下拉刷新
-      setTimeout(() => {
-        this.$toast('刷新成功')
-        this.isLoading = false
-      }, 500)
+    async onRefresh () { // 下拉刷新
+      const { data } = await artList({
+        channel_id: this.channel.id,
+        timestamp: Date.now(),
+        with_top: 0
+      })
+      const res = data.data.results
+      this.list.unshift(...res)// 放到最前面列表顶部
+      this.isLoading = false
+      this.$toast(`更新了${res.length}条信息`)
     }
   }
 }
 </script>
 
 <style lang="less" scoped>
-
 </style>

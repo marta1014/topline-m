@@ -5,7 +5,8 @@ import
   Row, Icon, Cell, CellGroup, Toast,
   CountDown, Tabbar, TabbarItem,
   Grid, GridItem, Image, Dialog,
-  Tab, Tabs, List, PullRefresh
+  Tab, Tabs, List, PullRefresh,
+  Popup
 }
   from 'vant'
 
@@ -28,3 +29,4 @@ Vue.use(NavBar)// 导航栏
   .use(Tabs)// 标签页
   .use(List)// 列表
   .use(PullRefresh)// 下拉刷新
+  .use(Popup)// 弹层
