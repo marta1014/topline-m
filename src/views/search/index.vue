@@ -18,7 +18,7 @@
       <!-- 联想搜索 -->
       <van-cell-group v-else-if="searchContent">
           <van-cell icon="search"
-          @click="enterItem(item)"
+          @click="onSearch(item)"
           v-for="(item,index) of Proposal" :key="index">
           <div slot="title" v-html="highlight(item)"></div></van-cell>
       </van-cell-group>
@@ -30,7 +30,8 @@
       &nbsp;&nbsp;
       <span>完成</span>
     </van-cell>
-          <van-cell :title="item" v-for="(item,index) of history" :key="index">
+          <van-cell :title="item" @click="onSearch(item)"
+          v-for="(item,index) of history" :key="index">
             <van-icon name="close"></van-icon>
           </van-cell>
       </van-cell-group>
@@ -53,7 +54,9 @@ export default {
     }
   },
   methods: {
-    onSearch () {
+    onSearch (q) {
+      // 优化 q 文本框数据本身 / 联想建议文本 / 历史记录文本
+      this.searchContent = q
       // 记录搜索历史记录
       const index = this.history.indexOf(this.searchContent)
       // 判断是否存在记录  有的话删除 没有放置最前端
@@ -74,11 +77,11 @@ export default {
     highlight (str) { // 字符串高亮处理 全局处理需要使用正则
       return str.toLowerCase().replace(this.searchContent.toLowerCase(),
         `<span style="color:red">${this.searchContent}</span>`)
-    },
-    enterItem (item) {
-      this.searchContent = item // 点击联想项 搜索框文本更新
-      this.isShow = true // 展示搜索结果
     }
+    // enterItem (item) {
+    //   this.searchContent = item // 点击联想项 搜索框文本更新
+    //   this.isShow = true // 展示搜索结果
+    // }
   },
   created () {},
   watch: {
