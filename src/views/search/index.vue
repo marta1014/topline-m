@@ -25,14 +25,16 @@
       <!-- 历史搜索记录 -->
       <van-cell-group v-else>
       <van-cell title="搜索记录">
-      <van-icon name="delete" />
-      <span>全部删除</span>
+      <template v-if="delBtn">
+        <span @click="history = []">全部删除</span>
       &nbsp;&nbsp;
-      <span>完成</span>
+      <span @click="delBtn = false">完成</span>
+      </template>
+      <van-icon v-else name="delete" @click="delBtn = true"/>
     </van-cell>
           <van-cell :title="item" @click="onSearch(item)"
           v-for="(item,index) of history" :key="index">
-            <van-icon name="close"></van-icon>
+            <van-icon name="close" @click="history.splice(index, 1)" v-show="delBtn"></van-icon>
           </van-cell>
       </van-cell-group>
   </div>
@@ -42,6 +44,7 @@
 import resSearch from '@/components/search/res-list.vue'
 import { getProposal } from '@/api/search'
 import { setItem, getItem } from '@/utils/storage'
+import { debounce } from 'lodash' // 引入防抖动
 export default {
   components: { resSearch },
   name: 'searchPage',
@@ -50,7 +53,8 @@ export default {
       searchContent: '',
       isShow: false, // 搜索结果展示
       Proposal: [], // 搜索联想建议
-      history: getItem('search-history') || []// 搜索历史
+      history: getItem('search-history') || [], // 搜索历史
+      delBtn: false
     }
   },
   methods: {
@@ -69,11 +73,17 @@ export default {
     onCancel () {
       this.$router.back('/home')// 回退首页
     },
-    async  onSearchinput () { // 输入时请求获取搜索建议
+    onSearchinput: debounce(async function () { // 进行截流防抖
       if (this.searchContent === '') { return }// 为空时不请求
       const { data } = await getProposal(this.searchContent)
+      console.log(this.Proposal)
       this.Proposal = data.data.options
-    },
+    }, 500),
+    // async  onSearchinput () { // 输入时请求获取搜索建议
+    //   if (this.searchContent === '') { return }// 为空时不请求
+    //   const { data } = await getProposal(this.searchContent)
+    //   this.Proposal = data.data.options
+    // },
     highlight (str) { // 字符串高亮处理 全局处理需要使用正则
       return str.toLowerCase().replace(this.searchContent.toLowerCase(),
         `<span style="color:red">${this.searchContent}</span>`)
