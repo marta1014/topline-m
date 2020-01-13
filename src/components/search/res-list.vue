@@ -6,36 +6,49 @@
   @load="onLoad"
   >
   <van-cell
-    v-for="item in list"
-    :key="item"
-    :title="item"
+    v-for="(item,index) in list"
+    :key="index.art_id"
+    :title="item.title"
   />
 </van-list>
   </div>
 </template>
 
 <script>
+import { getRes } from '@/api/search'
 export default {
+  name: 'search-list',
+  props: {
+    q: {// 接收父组件的搜索内容
+      type: String,
+      required: true
+    }
+  },
   data () {
     return {
       list: [],
       loading: false,
-      finished: false
+      finished: false,
+      page: 1,
+      perpage: 20
     }
   },
   methods: {
-    onLoad () {
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1)
-        }
-        // 加载状态结束
-        this.loading = false
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true
-        }
-      }, 500)
+    async onLoad () {
+      const { data } = await getRes({// 请求获取数据
+        page: this.page,
+        per_page: this.perpage,
+        q: this.q
+      })
+      const { results } = data.data
+      this.list.push(...results)// 推入list以便展示
+      console.log(this.list)
+      this.loading = false// 关闭加载中提示
+      if (results.lenght) { // 没数据 停止加载
+        this.page++
+      } else {
+        this.finished = true
+      }
     }
   }
 }
