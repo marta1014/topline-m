@@ -1,7 +1,27 @@
 <!-- 首页组件-->
 <template>
   <div class="container">
-    <van-nav-bar title="主页" fixed />
+    <!-- <van-nav-bar title="主页" fixed >
+      <van-button
+        class="search-btn"
+        round
+        type="info"
+        size="small"
+        icon="search"
+        @click="$router.push('/search')"
+      >搜索</van-button>
+    </van-nav-bar> -->
+    <div class="nav-bar">
+      <div class="logo"></div>
+      <van-button
+        class="search-btn"
+        round
+        type="info"
+        size="small"
+        icon="search"
+        @click="$router.push('/search')"
+      >搜索</van-button>
+    </div>
     <van-tabs v-model="active">
       <!-- 面包按钮
       tabs标签栏组件 支持插槽 故插入icon
@@ -9,6 +29,7 @@
       <van-icon
     slot="nav-right"
     name="wap-nav"
+    class="wap-nav"
     @click="isChannelEditShow = true"
   />
   <!-- 面包按钮 -->
@@ -78,11 +99,34 @@ export default {
 <style lang="less" scoped>
 .container {
   padding: 90px 0 50px 0;
-  .van-icon {
+   .nav-bar {
     position: fixed;
-    line-height: 40px;
+    top: 0;
+    left: 0;
     right: 0;
-    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 15px;
+    height: 46px;
+    background-color: #3196fa;
+    z-index: 1;
+    .logo {
+      background: url("./logo.png") no-repeat;
+      background-size: cover;
+      width: 100px;
+      height: 30px;
+    }
+    .search-btn {
+      background-color: #5babfb;
+      width: 50%;
+    }
+  }
+  .wap-nav {
+    position: fixed;
+    right: 0;
+    line-height: 44px;
+    background: #fff;
   }
 }
 </style>

@@ -6,7 +6,7 @@ import
   CountDown, Tabbar, TabbarItem,
   Grid, GridItem, Image, Dialog,
   Tab, Tabs, List, PullRefresh,
-  Popup
+  Popup, Search
 }
   from 'vant'
 
@@ -30,3 +30,4 @@ Vue.use(NavBar)// 导航栏
   .use(List)// 列表
   .use(PullRefresh)// 下拉刷新
   .use(Popup)// 弹层
+  .use(Search)// 搜索
